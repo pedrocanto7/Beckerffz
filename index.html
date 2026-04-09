@@ -171,24 +171,24 @@
 
         function injetarEabrir() {
             let log = "BECKERFFZ V55\n-----------------------\n";
-            log += "ALVO TRAVADO EM: " + currentTarget.toUpperCase() + "\n";
+            log += "ALVO: " + currentTarget + "\n";
             
-            // Lógica de Trava (Não Pinar)
+            // Lógica de Trava Vertical (Não Pinar)
             if (currentTarget === "Cabeça") {
-                log += "✓ ANTI-PINAR: Bloqueio vertical acima da cabeça ativo.\n";
+                log += "ANTI-PINAR: Bloqueio acima da testa ativado.\n";
             } else if (currentTarget === "Pescoço") {
-                log += "✓ ANTI-PINAR: Trava fixada para não subir à cabeça.\n";
+                log += "ANTI-PINAR: Bloqueio acima do pescoço ativado.\n";
             } else {
-                log += "✓ FOCO PEITO: Bloqueio de recoil vertical (No-Pinar).\n";
+                log += "ANTI-PINAR: Foco central no peito ativado.\n";
             }
 
             // Funções Ativas
-            if(document.getElementById('f-headtrick').classList.contains('checked')) log += "✓ Headtrick: ATIVADO\n";
-            if(document.getElementById('f-regedit').classList.contains('checked')) log += "✓ Regedit: CALIBRADO\n";
-            if(document.getElementById('f-auxilio').classList.contains('checked')) log += "✓ Auxílio: MAGNÉTICO\n";
-            if(document.getElementById('f-precisao').classList.contains('checked')) log += "✓ Precisão: ANTI-SPREAD\n";
+            if(document.getElementById('f-headtrick').classList.contains('checked')) log += "✓ Headtrick Ativo\n";
+            if(document.getElementById('f-regedit').classList.contains('checked')) log += "✓ Regedit Ativo\n";
+            if(document.getElementById('f-auxilio').classList.contains('checked')) log += "✓ Auxílio Ativo\n";
+            if(document.getElementById('f-precisao').classList.contains('checked')) log += "✓ Precisão Ativa\n";
 
-            alert(log + "\nINJETANDO E ABRINDO FREE FIRE...");
+            alert(log + "\nABRINDO JOGO...");
 
             setTimeout(() => {
                 window.location.href = "freefire://";
