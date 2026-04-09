@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BECKERFFZ V55 - EXTREME PRECISION</title>
+    <title>BECKERFFZ V55 - ORIGINAL</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
@@ -15,32 +15,48 @@
             justify-content: center; align-items: center;
             overflow: hidden;
         }
+        
+        /* Login */
         #login-screen { display: flex; flex-direction: column; align-items: center; width: 100%; }
         .login-title { color: #fff; font-size: 24px; letter-spacing: 2px; text-shadow: 0 0 10px #ffca28; margin: 0; }
+        .login-subtitle { color: #ffca28; font-size: 14px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px; opacity: 0.8; }
         .login-input { background: #050505; border: 1px solid #ffca28; border-radius: 10px; color: #fff; padding: 15px; width: 85%; font-size: 18px; text-align: center; margin-bottom: 15px; outline: none; }
         .login-btn { background: #ffca28; color: #000; border: none; padding: 15px 45px; border-radius: 12px; font-weight: bold; font-size: 16px; box-shadow: 0 0 10px #ffca28; cursor: pointer; }
-        
+        #error-msg { color: #ff4444; font-size: 14px; margin-top: 15px; font-weight: bold; visibility: hidden; }
+
+        /* Painel Principal */
         #main-panel { display: none; flex-direction: column; height: 100%; width: 100%; }
         h1 { color: #fff; font-size: 22px; letter-spacing: 2px; text-shadow: 0 0 10px #ffca28; margin: 15px 0; }
+        
         .header-top { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+        .menu-dots { font-size: 24px; cursor: pointer; color: #ffca28; padding: 5px; }
+
         .painel-container { display: flex; flex: 1; overflow: hidden; }
         .sidebar { width: 75px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid #222; }
         .nav-btn { background: #000; color: #444; border: 1px solid #111; padding: 12px 5px; margin: 10px 0; border-radius: 10px; font-size: 11px; width: 60px; text-align: center; cursor: pointer; }
         .nav-btn.active { color: #ffca28; border: 1px solid #ffca28; box-shadow: 0 0 10px #ffca28; }
+
         .main-content { flex: 1; padding-left: 15px; display: flex; flex-direction: column; position: relative; overflow-y: auto; }
         .tab-content { display: none; flex-direction: column; width: 100%; }
         .tab-content.active { display: flex; }
+
         .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
         .check-btn { background: #050505; color: #ffca28; border: 1px solid #1a1a1a; padding: 15px 10px; border-radius: 10px; font-size: 11px; text-align: left; position: relative; font-weight: 500; cursor: pointer; }
         .check-btn.checked { border: 1px solid #ffca28; box-shadow: 0 0 8px #ffca28; }
         .check-btn.checked::after { content: '✓'; position: absolute; right: 5px; color: #0f0; }
+
         .slider-group { background: #050505; padding: 15px; border-radius: 10px; margin-bottom: 12px; }
         .slider-label { font-size: 13px; color: #ffca28; margin-bottom: 10px; display: block; text-align: left; }
         .fov-slider { -webkit-appearance: none; width: 100%; height: 6px; background: #222; border-radius: 3px; }
         .fov-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #ffca28; border-radius: 50%; box-shadow: 0 0 8px #ffca28; cursor: pointer;}
+
         .target-select { background: #050505; color: #fff; border: 1px solid #1a1a1a; width: 100%; padding: 15px; border-radius: 10px; font-size: 14px; margin-bottom: 10px; font-weight: bold; text-align: center; cursor: pointer; }
         #target-menu { display: none; background: #111; border: 1px solid #ffca28; border-radius: 12px; margin-bottom: 10px; width: 100%; }
         .option { padding: 15px; border-bottom: 1px solid #222; color: #fff; cursor: pointer; }
+
+        .vertical-list { display: flex; flex-direction: column; gap: 10px; }
+        .info-box { background: #050505; border: 1px solid #1a1a1a; padding: 15px; border-radius: 10px; text-align: left; }
+
         .inject-btn { background: #ffca28; color: #000; border: none; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; box-shadow: 0 0 15px #ffca28; margin-top: 5px; margin-bottom: 20px; cursor: pointer; }
     </style>
 </head>
@@ -48,16 +64,24 @@
 
     <div id="login-screen">
         <p class="login-title">BECKERFFZ LOGIN</p>
-        <input type="password" id="pass-input" class="login-input" placeholder="Senha">
+        <p class="login-subtitle">otimização</p>
+        <input type="password" id="pass-input" class="login-input" placeholder="Digite a Senha">
         <button class="login-btn" onclick="checkAuth()">ENTRAR</button>
+        <div id="error-msg">Senha Incorreta!</div>
     </div>
 
     <div id="main-panel">
-        <h1>BECKERFFZ V55</h1>
+        <div class="header-top">
+            <div style="width: 30px;"></div>
+            <h1>BECKERFFZ</h1>
+            <div class="menu-dots" onclick="alert('Menu Protegido: 777')">•••</div>
+        </div>
+
         <div class="painel-container">
             <div class="sidebar">
                 <div id="nav-aim" class="nav-btn active" onclick="openTab('aimbot', this)">aimbot</div>
                 <div id="nav-fps" class="nav-btn" onclick="openTab('fps', this)">fps</div>
+                <div id="nav-info" class="nav-btn" onclick="openTab('info', this)">info</div>
             </div>
 
             <div class="main-content">
@@ -82,9 +106,32 @@
                 </div>
 
                 <div id="fps" class="tab-content">
-                    <div class="checkbox-grid" style="grid-template-columns: 1fr;">
+                    <div class="vertical-list">
+                        <div id="f-contraste" class="check-btn" onclick="toggle(this)">Aumentar contraste</div>
                         <div id="f-fluidez" class="check-btn" onclick="toggle(this)">Aumentar fluidez</div>
+                        <div id="f-deslize" class="check-btn" onclick="toggle(this)">Aumentar deslize</div>
                         <div id="f-120fps" class="check-btn" onclick="toggle(this)">Forçar 120 Fps</div>
+                    </div>
+                </div>
+
+                <div id="info" class="tab-content">
+                    <div class="vertical-list">
+                        <div class="info-box">
+                            <span style="font-size:10px; color:#888;">Créditos</span><br>
+                            <span style="font-size:14px; color:#fff; font-weight:bold;">beckerffz</span>
+                        </div>
+                        <div class="info-box">
+                            <span style="font-size:10px; color:#888;">Criado por</span><br>
+                            <span style="font-size:14px; color:#fff; font-weight:bold;">@beckerffz_7</span>
+                        </div>
+                        <div class="info-box">
+                            <span style="font-size:10px; color:#888;">Disponibilidade</span><br>
+                            <span style="font-size:14px; color:#ffca28; font-weight:bold;">Disponível para iphone</span>
+                        </div>
+                        <div class="info-box" style="border: 1px solid #0f0;">
+                            <span style="font-size:10px; color:#0f0;">Status</span><br>
+                            <span style="font-size:14px; color:#fff; font-weight:bold;">Versão Premium</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +143,8 @@
             if (document.getElementById('pass-input').value === "777") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-panel').style.display = 'flex';
+            } else {
+                document.getElementById('error-msg').style.visibility = 'visible';
             }
         }
 
@@ -107,6 +156,7 @@
             btn.classList.add('active');
         }
         function updateSensi(val) { document.getElementById('label-precisao').innerText = 'Ajuste Precisão - ' + val; }
+        
         function toggleMenu() {
             let menu = document.getElementById('target-menu');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
@@ -120,19 +170,25 @@
         }
 
         function injetarEabrir() {
-            let status = [];
-            // Lógica funcional das flags
-            if(document.getElementById('f-headtrick').classList.contains('checked')) status.push("Anti-Pinar: ATIVADO");
-            if(document.getElementById('f-auxilio').classList.contains('checked')) status.push("Aimbot: LOCK-ON");
-            if(document.getElementById('f-precisao').classList.contains('checked')) status.push("No-Spread: ATIVADO");
-            if(document.getElementById('f-regedit').classList.contains('checked')) status.push("Regedit: SENS-FIX");
+            // Lógica de Trava (Anti-Pinar)
+            let msg = "BECKERFFZ V55 INJECTOR\n-----------------------\n";
+            msg += "ALVO TRAVADO: " + currentTarget + "\n";
+            
+            if (currentTarget === "Cabeça") {
+                msg += "LOG: Bloqueio Vertical ativado (Bala não passa da testa).\n";
+            } else if (currentTarget === "Pescoço") {
+                msg += "LOG: Limitador fixado no pescoço (Não sobe para cabeça).\n";
+            } else {
+                msg += "LOG: Foco centralizado (Bala travada no Peito).\n";
+            }
 
-            let log = "BECKERFFZ V55 INJECTOR\n-----------------------\n";
-            log += "ALVO FIXADO: " + currentTarget + "\n";
-            log += "LIMITADOR VERTICAL: " + (currentTarget === "Cabeça" ? "BLOQUEAR ACIMA DA TESTA" : currentTarget === "Pescoço" ? "BLOQUEAR ACIMA DO PESCOÇO" : "FOCO CENTRAL PEITO") + "\n";
-            log += "STATUS: " + (status.length > 0 ? "FUNÇÕES SINCRONIZADAS" : "PADRÃO") + "\n\nABRINDO O JOGO...";
+            // Ativação das funções principais
+            if(document.getElementById('f-headtrick').classList.contains('checked')) msg += "✓ Headtrick: Sincronizado\n";
+            if(document.getElementById('f-regedit').classList.contains('checked')) msg += "✓ Regedit: Calibrado\n";
+            if(document.getElementById('f-auxilio').classList.contains('checked')) msg += "✓ Auxílio: Magnético\n";
+            if(document.getElementById('f-precisao').classList.contains('checked')) msg += "✓ Precisão: Anti-Spread\n";
 
-            alert(log);
+            alert(msg + "\nABRINDO FREE FIRE...");
 
             setTimeout(() => {
                 window.location.href = "freefire://";
