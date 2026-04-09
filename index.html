@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+// --- BECKERFFZ INTERFACE (V55) ---
+
+async function iniciarPainel() {
+    let html = `
+    <html>
+    <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BECKERFFZ V55</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
             background: #000; color: #ffca28; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
             text-align: center; margin: 0; padding: 12px; 
+            border: 1px solid #ffca28; border-radius: 20px; 
             display: flex; flex-direction: column; height: 100vh;
             justify-content: center; align-items: center;
-        }
-
-        /* Interface Principal com a borda amarela que você definiu */
-        #painel-box {
-            border: 1px solid #ffca28; border-radius: 20px;
-            display: flex; flex-direction: column; height: 95vh;
-            width: 100%; max-width: 400px; justify-content: center; align-items: center;
-            padding: 12px; background: #000;
         }
         
         /* Login */
@@ -27,7 +21,7 @@
         .login-title { color: #fff; font-size: 24px; letter-spacing: 2px; text-shadow: 0 0 10px #ffca28; margin: 0; }
         .login-subtitle { color: #ffca28; font-size: 14px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px; opacity: 0.8; }
         .login-input { background: #050505; border: 1px solid #ffca28; border-radius: 10px; color: #fff; padding: 15px; width: 85%; font-size: 18px; text-align: center; margin-bottom: 15px; outline: none; }
-        .login-btn { background: #ffca28; color: #000; border: none; padding: 15px 45px; border-radius: 12px; font-weight: bold; font-size: 16px; box-shadow: 0 0 10px #ffca28; cursor: pointer; }
+        .login-btn { background: #ffca28; color: #000; border: none; padding: 15px 45px; border-radius: 12px; font-weight: bold; font-size: 16px; box-shadow: 0 0 10px #ffca28; }
         #error-msg { color: #ff4444; font-size: 14px; margin-top: 15px; font-weight: bold; visibility: hidden; }
 
         /* Painel Principal */
@@ -39,7 +33,7 @@
 
         .painel-container { display: flex; flex: 1; overflow: hidden; }
         .sidebar { width: 75px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid #222; }
-        .nav-btn { background: #000; color: #444; border: 1px solid #111; padding: 12px 5px; margin: 10px 0; border-radius: 10px; font-size: 11px; width: 60px; text-align: center; cursor: pointer; }
+        .nav-btn { background: #000; color: #444; border: 1px solid #111; padding: 12px 5px; margin: 10px 0; border-radius: 10px; font-size: 11px; width: 60px; text-align: center; }
         .nav-btn.active { color: #ffca28; border: 1px solid #ffca28; box-shadow: 0 0 10px #ffca28; }
 
         .main-content { flex: 1; padding-left: 15px; display: flex; flex-direction: column; position: relative; overflow-y: auto; }
@@ -47,7 +41,7 @@
         .tab-content.active { display: flex; }
 
         .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
-        .check-btn { background: #050505; color: #ffca28; border: 1px solid #1a1a1a; padding: 15px 10px; border-radius: 10px; font-size: 11px; text-align: left; position: relative; font-weight: 500; cursor: pointer; }
+        .check-btn { background: #050505; color: #ffca28; border: 1px solid #1a1a1a; padding: 15px 10px; border-radius: 10px; font-size: 11px; text-align: left; position: relative; font-weight: 500; }
         .check-btn.checked { border: 1px solid #ffca28; box-shadow: 0 0 8px #ffca28; }
         .check-btn.checked::after { content: '✓'; position: absolute; right: 5px; color: #0f0; }
 
@@ -56,19 +50,18 @@
         .fov-slider { -webkit-appearance: none; width: 100%; height: 6px; background: #222; border-radius: 3px; }
         .fov-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #ffca28; border-radius: 50%; box-shadow: 0 0 8px #ffca28;}
 
-        .target-select { background: #050505; color: #fff; border: 1px solid #1a1a1a; width: 100%; padding: 15px; border-radius: 10px; font-size: 14px; margin-bottom: 10px; font-weight: bold; text-align: center; cursor: pointer; }
+        .target-select { background: #050505; color: #fff; border: 1px solid #1a1a1a; width: 100%; padding: 15px; border-radius: 10px; font-size: 14px; margin-bottom: 10px; font-weight: bold; text-align: center; }
         #target-menu { display: none; background: #111; border: 1px solid #ffca28; border-radius: 12px; margin-bottom: 10px; width: 100%; }
-        .option { padding: 15px; border-bottom: 1px solid #222; color: #fff; cursor: pointer; }
+        .option { padding: 15px; border-bottom: 1px solid #222; color: #fff; }
 
         .vertical-list { display: flex; flex-direction: column; gap: 10px; }
         .info-box { background: #050505; border: 1px solid #1a1a1a; padding: 15px; border-radius: 10px; text-align: left; }
 
-        .inject-btn { background: #ffca28; color: #000; border: none; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; box-shadow: 0 0 15px #ffca28; margin-top: 5px; margin-bottom: 20px; cursor: pointer; }
+        .inject-btn { background: #ffca28; color: #000; border: none; width: 100%; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: bold; box-shadow: 0 0 15px #ffca28; margin-top: 5px; margin-bottom: 20px; }
     </style>
-</head>
-<body>
+    </head>
+    <body>
 
-    <div id="painel-box">
         <div id="login-screen">
             <p class="login-title">BECKERFFZ LOGIN</p>
             <p class="login-subtitle">otimização</p>
@@ -92,12 +85,13 @@
                 </div>
 
                 <div class="main-content">
+                    
                     <div id="aimbot" class="tab-content active">
                         <div class="checkbox-grid">
-                            <div class="check-btn" onclick="toggle(this)">Auxílio</div>
-                            <div class="check-btn" onclick="toggle(this)">NoRecoil</div>
-                            <div class="check-btn" onclick="toggle(this)">Precisão</div>
-                            <div class="check-btn" onclick="toggle(this)">Regedit</div>
+                            <div id="f-auxilio" class="check-btn" onclick="toggle(this)">Auxílio</div>
+                            <div id="f-recoil" class="check-btn" onclick="toggle(this)">NoRecoil</div>
+                            <div id="f-precisao" class="check-btn" onclick="toggle(this)">Precisão</div>
+                            <div id="f-regedit" class="check-btn" onclick="toggle(this)">Regedit</div>
                         </div>
                         <div class="slider-group">
                             <span id="label-precisao" class="slider-label">Ajuste Precisão - 1</span>
@@ -109,17 +103,17 @@
                             <div class="option" onclick="selectTarget('Pescoço')">Pescoço</div>
                             <div class="option" onclick="selectTarget('Peito')">Peito</div>
                         </div>
-                        <button class="inject-btn" onclick="injetarEAbrir()">INJETAR</button>
+                        <button class="inject-btn" onclick="injetar()">INJETAR</button>
                     </div>
 
                     <div id="fps" class="tab-content">
                         <div class="vertical-list">
-                            <div class="check-btn" onclick="toggle(this)">Aumentar contraste</div>
-                            <div class="check-btn" onclick="toggle(this)">Aumentar fluidez</div>
-                            <div class="check-btn" onclick="toggle(this)">Aumentar deslize</div>
-                            <div class="check-btn" onclick="toggle(this)">Forçar 120 Fps</div>
+                            <div id="f-contraste" class="check-btn" onclick="toggle(this)">Aumentar contraste</div>
+                            <div id="f-fluidez" class="check-btn" onclick="toggle(this)">Aumentar fluidez</div>
+                            <div id="f-deslize" class="check-btn" onclick="toggle(this)">Aumentar deslize</div>
+                            <div id="f-120fps" class="check-btn" onclick="toggle(this)">Forçar 120 Fps</div>
                         </div>
-                        <button class="inject-btn" style="margin-top:15px" onclick="injetarEAbrir()">INJETAR FPS</button>
+                        <button class="inject-btn" style="margin-top:15px" onclick="injetar()">INJETAR FPS</button>
                     </div>
 
                     <div id="info" class="tab-content">
@@ -132,6 +126,10 @@
                                 <span style="font-size:10px; color:#888;">Criado por</span><br>
                                 <span style="font-size:14px; color:#fff; font-weight:bold;">@beckerffz_7</span>
                             </div>
+                            <div class="info-box">
+                                <span style="font-size:10px; color:#888;">Disponibilidade</span><br>
+                                <span style="font-size:14px; color:#ffca28; font-weight:bold;">Disponível para iphone</span>
+                            </div>
                             <div class="info-box" style="border: 1px solid #0f0;">
                                 <span style="font-size:10px; color:#0f0;">Status</span><br>
                                 <span style="font-size:14px; color:#fff; font-weight:bold;">Versão Premium</span>
@@ -141,51 +139,41 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        function checkAuth() {
-            if (document.getElementById('pass-input').value === "777") {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-panel').style.display = 'flex';
-            } else {
-                document.getElementById('error-msg').style.visibility = 'visible';
+        <script>
+            function checkAuth() {
+                if (document.getElementById('pass-input').value === "777") {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-panel').style.display = 'flex';
+                } else {
+                    document.getElementById('error-msg').style.visibility = 'visible';
+                }
             }
-        }
 
-        function toggle(el) { el.classList.toggle('checked'); }
-        
-        function openTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-        }
+            function toggle(el) { el.classList.toggle('checked'); }
+            function openTab(tabId, btn) {
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                btn.classList.add('active');
+            }
+            function updateSensi(val) { document.getElementById('label-precisao').innerText = 'Ajuste Precisão - ' + val; }
+            function toggleMenu() {
+                let menu = document.getElementById('target-menu');
+                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            }
+            function selectTarget(target) {
+                document.getElementById('target-display').innerText = target;
+                toggleMenu();
+            }
+            function injetar() { alert("Beckerffz: Injetado com sucesso!"); }
+        </script>
+    </body>
+    </html>`;
+    
+    let wv = new WebView();
+    wv.loadHTML(html);
+    wv.present(false);
+}
 
-        function updateSensi(val) { document.getElementById('label-precisao').innerText = 'Ajuste Precisão - ' + val; }
-        
-        function toggleMenu() {
-            let menu = document.getElementById('target-menu');
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function selectTarget(target) {
-            document.getElementById('target-display').innerText = target;
-            toggleMenu();
-        }
-
-        // FUNÇÃO QUE VOCÊ PEDIU: INJETAR E ABRIR O JOGO
-        function injetarEAbrir() {
-            alert("Beckerffz: Injetado com sucesso! Abrindo Free Fire...");
-            
-            // Tenta abrir o Free Fire (Funciona em Android e iOS)
-            window.location.href = "freefire://";
-            
-            // Backup caso o link direto falhe
-            setTimeout(function() {
-                window.location.href = "com.dts.freefireth://";
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+iniciarPainel();
