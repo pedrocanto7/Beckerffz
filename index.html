@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BECKERFFZ V55 - ORIGINAL</title>
+    <title>BECKERFFZ V55 - ORIGINAL COMPLETO</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
@@ -170,25 +170,25 @@
         }
 
         function injetarEabrir() {
-            // Lógica de Trava (Anti-Pinar)
-            let msg = "BECKERFFZ V55 INJECTOR\n-----------------------\n";
-            msg += "ALVO TRAVADO: " + currentTarget + "\n";
+            let log = "BECKERFFZ V55\n-----------------------\n";
+            log += "ALVO TRAVADO EM: " + currentTarget.toUpperCase() + "\n";
             
+            // Lógica de Trava (Não Pinar)
             if (currentTarget === "Cabeça") {
-                msg += "LOG: Bloqueio Vertical ativado (Bala não passa da testa).\n";
+                log += "✓ ANTI-PINAR: Bloqueio vertical acima da cabeça ativo.\n";
             } else if (currentTarget === "Pescoço") {
-                msg += "LOG: Limitador fixado no pescoço (Não sobe para cabeça).\n";
+                log += "✓ ANTI-PINAR: Trava fixada para não subir à cabeça.\n";
             } else {
-                msg += "LOG: Foco centralizado (Bala travada no Peito).\n";
+                log += "✓ FOCO PEITO: Bloqueio de recoil vertical (No-Pinar).\n";
             }
 
-            // Ativação das funções principais
-            if(document.getElementById('f-headtrick').classList.contains('checked')) msg += "✓ Headtrick: Sincronizado\n";
-            if(document.getElementById('f-regedit').classList.contains('checked')) msg += "✓ Regedit: Calibrado\n";
-            if(document.getElementById('f-auxilio').classList.contains('checked')) msg += "✓ Auxílio: Magnético\n";
-            if(document.getElementById('f-precisao').classList.contains('checked')) msg += "✓ Precisão: Anti-Spread\n";
+            // Funções Ativas
+            if(document.getElementById('f-headtrick').classList.contains('checked')) log += "✓ Headtrick: ATIVADO\n";
+            if(document.getElementById('f-regedit').classList.contains('checked')) log += "✓ Regedit: CALIBRADO\n";
+            if(document.getElementById('f-auxilio').classList.contains('checked')) log += "✓ Auxílio: MAGNÉTICO\n";
+            if(document.getElementById('f-precisao').classList.contains('checked')) log += "✓ Precisão: ANTI-SPREAD\n";
 
-            alert(msg + "\nABRINDO FREE FIRE...");
+            alert(log + "\nINJETANDO E ABRINDO FREE FIRE...");
 
             setTimeout(() => {
                 window.location.href = "freefire://";
